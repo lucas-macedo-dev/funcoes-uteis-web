@@ -1,0 +1,29 @@
+function tabela_json (retorno_dados) {
+    let objeto;
+    let tabela = '<table class="table table-responsive table-bordered p-1">';
+
+    if(typeof retorno_dados !== 'object')
+    {
+        objeto = JSON.parse(retorno_dados);
+    } else {
+        objeto = retorno_dados;
+    }
+
+    for (let chave in objeto) {
+        tabela += '<tr>';
+        tabela += '<th class="border p-1 align-middle">' + chave + '</th>';
+
+        if (typeof objeto[chave] === 'object') {
+            let tabelaInterna = tabela_json(objeto[chave]);
+            tabela += '<td class="border p-1 align-middle">' + tabelaInterna + '</td>';
+        } else {
+            tabela += '<td class="border p-1 align-middle">' + objeto[chave] + '</td>';
+        }
+
+        tabela += '</tr>';
+    }
+
+    tabela += '</table>';
+
+    return tabela;
+}
