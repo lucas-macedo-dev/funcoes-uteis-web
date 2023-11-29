@@ -1,0 +1,20 @@
+function formatarValorMonetario (valor) {
+    // Verifica se o valor é uma string
+    if (typeof valor !== 'string') {
+        throw new Error('O valor deve ser uma string.');
+    }
+
+    // Remove qualquer caractere não numérico
+    const valorNumerico = valor.replace(/\D/g, '');
+
+    // Converte o valor para um número
+    const valorFormatado = Number(valorNumerico);
+
+    // Formata o valor para o formato monetário brasileiro
+    const valorMonetario = valorFormatado.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+    });
+
+    return valorMonetario;
+}
