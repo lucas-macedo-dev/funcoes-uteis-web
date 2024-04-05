@@ -1,14 +1,29 @@
  function animateValue (id, start, end, duration) {
-    let obj       = document.getElementById(id);
-    let range     = end - start;
-    let current   = start;
-    let increment = end > start ? 1 : -1;
-    let stepTime  = Math.abs(Math.floor(duration / range));
-    let timer     = setInterval(function () {
-        current += increment;
-        obj.innerHTML = current;
-        if (current == end) {
-            clearInterval(timer);
+        const INTERVAL_TIME = 10;
+        if (duration < 100) {
+            duration = 100;
+        } else if (duration > 10000) {
+            duration = 10000;
         }
-    }, stepTime);
+
+        let obj      = document.getElementById(id);
+        let decimals = (end % 1 != 0) ? (end.toString().split('.')[1] || '').length : 0;
+
+        const stepTime = Math.ceil(duration / INTERVAL_TIME);
+        let doneLoops = 0;
+
+        let quantityPerLoop = end / stepTime;
+
+        // let increment = end > start ? 1 : -1;
+        let increment = (end - start) / stepTime;
+        let current   = start;
+
+        const INTERVAL = setInterval(function () {
+            current += quantityPerLoop;
+            obj.innerHTML = current.toFixed(decimals);
+            if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                clearInterval(INTERVAL);
+                obj.innerHTML = parseFloat(end).toFixed(decimals);
+            }
+        }, INTERVAL_TIME);
 }
