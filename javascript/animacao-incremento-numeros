@@ -9,12 +9,15 @@
         let obj      = document.getElementById(id);
         let decimals = (end % 1 != 0) ? (end.toString().split('.')[1] || '').length : 0;
 
+        if (end === start) {
+         obj.innerHTML = start.toFixed(decimals);
+         return;
+        }
+
         const stepTime = Math.ceil(duration / INTERVAL_TIME);
-        let doneLoops = 0;
 
         let quantityPerLoop = end / stepTime;
 
-        // let increment = end > start ? 1 : -1;
         let increment = (end - start) / stepTime;
         let current   = start;
 
