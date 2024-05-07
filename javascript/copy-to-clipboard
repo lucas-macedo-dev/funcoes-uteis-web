@@ -1,0 +1,4 @@
+window.clipboardCopy = async function (elemento) {
+    let text = elemento.children[0].text.trim();
+    await navigator.clipboard.writeText(text);
+}
