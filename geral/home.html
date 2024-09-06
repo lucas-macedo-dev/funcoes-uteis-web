@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        #context-menu {
+            z-index: 1000;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const contextElement = document.getElementById('context-element');
+            const contextMenu = document.getElementById('context-menu');
+            const customActionButton = document.getElementById('custom-action');
+
+            // Função para mostrar o menu de contexto
+            contextElement.addEventListener('contextmenu', function (e) {
+                e.preventDefault(); // Prevenir o menu de contexto padrão
+                contextMenu.style.display = 'block';
+                contextMenu.style.left = `${e.pageX}px`;
+                contextMenu.style.top = `${e.pageY}px`;
+            });
+
+            // Ocultar o menu ao clicar fora dele
+            document.addEventListener('click', function () {
+                contextMenu.style.display = 'none';
+            });
+
+            // Ação personalizada ao clicar no botão do menu
+            customActionButton.addEventListener('click', function () {
+                alert('Ação personalizada executada!');
+                contextMenu.style.display = 'none'; // Ocultar o menu após a ação
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container rounded mt-5">
+        <div id="context-element" class="p-5 bg-primary rounded text-white">
+            Clique com o botão direito aqui
+        </div>
+
+        <!-- Context Menu -->
+        <div id="context-menu" class="dropdown-menu" style="position: absolute; display: none;">
+            <button class="dropdown-item" id="custom-action">
+                <i class="fa-solid fa-pen-to-square"></i>&nbsp;Editar CFA Flex
+            </button>
+            <button class="dropdown-item" id="custom-action">Ação Personalizada2</button>
+        </div>
+    </div>
+</body>
+
+</html>
